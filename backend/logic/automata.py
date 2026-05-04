@@ -1,5 +1,4 @@
 def procesar_automata(secuencia, indices_inicio):
-    # Tabla de transiciones (Se mantiene tu diseño de estados)
     tabla = {
         'D': {'A': 'D', 'T': 'E', 'G': 'D', 'C': 'D'},
         'E': {'A': 'F', 'T': 'E', 'G': 'G', 'C': 'D'},
@@ -15,8 +14,6 @@ def procesar_automata(secuencia, indices_inicio):
 
     for inicio_atg in indices_inicio:
         estado = 'D'
-        # NO usamos break. Si un ATG encuentra un TAA y luego un TGA, 
-        # reportará ambos como secuencias válidas que empezaron en ese ATG.
         for k in range(inicio_atg, len(secuencia)):
             letra = secuencia[k]
             if letra in tabla[estado]:
