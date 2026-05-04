@@ -2,7 +2,7 @@
 
 Herramienta para analizar secuencias de ADN utilizando un Autómata Finito Determinista (AFD) de 10 estados que detecta patrones de inicio (ATG) y terminación (TAA, TAG, TGA).
 
-## 📋 Tabla de Contenidos
+## Tabla de Contenidos
 - [Instalación](#instalación)
 - [Tecnologías Usadas](#tecnologías-usadas)
 - [Metodología](#metodología)
@@ -159,10 +159,10 @@ Proyecto-AutomatasU1/
 ```
 ggggatgtaa
 ```
-✅ Resultado: Detecta ATG en posición 4 y TAA en posición 9
+Resultado: Detecta ATG en posición 4 y TAA en posición 9
 
 **Entrada inválida:**
 ```
 attattttt
 ```
-❌ Resultado: Cadena inválida (no contiene ATG...TAA/TAG/TGA)
+ Resultado: Cadena inválida (no contiene ATG...TAA/TAG/TGA)
