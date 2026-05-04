@@ -19,7 +19,7 @@ function App() {
       setResultados(res.data.data.detalles);
       setSeleccionado(null);
     } catch (error) {
-      alert("Error al conectar con el servidor Flask");
+      alert("No se comunica con Flask - Verifica que el servidor esté ejecutándose");
     }
   };
 
@@ -87,22 +87,9 @@ function App() {
 
   return (
     <div className="container">
-      <h1 style={{color: '#60a5fa'}}>DNA Analyzer - AFD 10 Estados</h1>
+      <h1 style={{color: '#60a5fa'}}>Analizador de ADN</h1>
       
-      <div className="header">
-        <div className="brand">
-          <img src="/src/assets/hero.png" alt="logo" />
-          <div>
-            <h1>DNA Analyzer</h1>
-            <div className="subtitle">AFD 10 Estados — Interfaz clínica oscura</div>
-          </div>
-        </div>
-        <div className="automata-box">
-          <label className="upload-label">Imagen del autómata</label>
-          <input type="file" accept="image/*" onChange={handleImageUpload} />
-          {automataImage && <img src={automataImage} alt="automata" className="automata-preview" />}
-        </div>
-      </div>
+
 
       <div className="main-grid">
         <div className="panel">
@@ -112,7 +99,6 @@ function App() {
               {['ATG','TAA','TAG','TGA'].map(p => (
                 <div key={p} className="pattern-control">
                   <button className="btn pattern" onClick={() => insertAtCursor(p)}>{p}</button>
-                  <button className={acceptedPatterns.includes(p) ? 'btn small active-toggle' : 'btn small'} onClick={() => togglePattern(p)} title="Marcar como aceptado">✓</button>
                 </div>
               ))}
             </div>
@@ -149,22 +135,26 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              {resultados.map((res, idx) => (
-                <tr 
-                  key={idx} 
-                  onClick={() => setSeleccionado(seleccionado === idx ? null : idx)}
-                  className={seleccionado === idx ? "active-row" : ""}
-                >
-                  <td>{idx + 1}</td>
-                  <td><span className="badge" title={res.patron}>Coincidencia</span></td>
-                  <td>[{res.inicio} - {res.fin}]</td>
+              {resultados.length === 0 && secuencia ? (
+                <tr>
+                  <td colSpan="3" style={{textAlign: 'center', color: '#ef4444', fontWeight: 'bold'}}>Cadena inválida</td>
                 </tr>
-              ))}
+              ) : (
+                resultados.map((res, idx) => (
+                  <tr 
+                    key={idx} 
+                    onClick={() => setSeleccionado(seleccionado === idx ? null : idx)}
+                    className={seleccionado === idx ? "active-row" : ""}
+                  >
+                    <td>{idx + 1}</td>
+                    <td><span className="badge" title={res.patron}>Coincidencia</span></td>
+                    <td>[{res.inicio} - {res.fin}]</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
           <div className="accepted-list">
-            <strong>Estados activos:</strong>
-            {acceptedPatterns.length === 0 ? <span className="muted"> Ninguno</span> : acceptedPatterns.map(p => <span key={p} className="pill">{p}</span>)}
           </div>
         </div>
       </div>
