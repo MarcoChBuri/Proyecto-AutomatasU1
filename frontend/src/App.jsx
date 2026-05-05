@@ -70,7 +70,7 @@ function App() {
         const header = lines.length > 0 ? lines[0] : '';
         const seqLines = lines.slice(1);
         const rawSeq = seqLines.join('').toUpperCase().replace(/\s+/g, '');
-        // validity will be determined by backend; mark as unknown (null) for now
+
         return { header, seq: rawSeq, valid: null, length: rawSeq.length };
       });
       setParsedFastas(entries);
@@ -123,7 +123,7 @@ function App() {
 
   const exportToFasta = () => {
     if (!secuencia || secuencia.trim() === '') { alert('No hay secuencia para exportar'); return; }
-    const header = '>gi|12345678|ref|NM_001| Homo sapiens gen de prueba';
+    const header = '>gi|12345678|ref|NM_001| gen de prueba';
     const content = header + '\n' + secuencia + '\n';
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
